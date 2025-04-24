@@ -1,1 +1,1204 @@
 # Portfolio-Project
+# This is my portfolio project for CT Assignment
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atharv Kawade's Dynamic Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            /* Color Palette */
+            --gradient-start: #6a11cb;
+            --gradient-mid: #2575fc;
+            --gradient-end: #1ddde8;
+            --bg-color-dark: #12121a;
+            --bg-color-section: #1a1a24;
+            --bg-color-item: #2a2a34;
+            --text-color-primary: #e0e0e0;
+            --text-color-secondary: #b0b0b0;
+            --text-color-link: var(--gradient-mid);
+            --text-color-link-hover: var(--gradient-end);
+            --gradient-main: linear-gradient(to right, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+            --gradient-hover: linear-gradient(to right, var(--gradient-mid), var(--gradient-end), var(--gradient-start));
+
+            /* Page specific backgrounds */
+            --bg-page-about: #1f1f2b;
+            --bg-page-skills: #1a2a2a;
+            --bg-page-projects: #2b1a2b;
+            --bg-page-certs: #2a2a1a;
+            --bg-page-hobbies: #1a1a3a;
+            --bg-page-articles: #2c2c1f;
+            /* New background for articles */
+            --bg-page-contact: #2c1f1f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color-dark);
+            background: linear-gradient(135deg, var(--bg-color-dark), #1a1a2e, var(--bg-color-dark));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-color-primary);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* --- Page Container --- */
+        .page-container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* --- Individual Pages --- */
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 100vh;
+            padding: 60px 5% 0;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            overflow-y: auto;
+            background-color: var(--bg-color-dark);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-content-wrapper {
+            flex-grow: 1;
+            padding-bottom: 50px; /* Space for footer */
+        }
+
+        .page.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        /* --- Page Specific Transitions & Backgrounds --- */
+        #page-about.active {
+            background-color: var(--bg-page-about);
+            animation: slideInLeft 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        #page-skills.active {
+            background-color: var(--bg-page-skills);
+            animation: fadeInScaleUp 0.7s ease-out forwards;
+        }
+
+        @keyframes fadeInScaleUp {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        #page-projects.active {
+            background-color: var(--bg-page-projects);
+            animation: slideInRight 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        #page-certifications.active {
+            background-color: var(--bg-page-certs);
+            animation: fadeInBottom 0.7s ease-out forwards;
+        }
+
+        @keyframes fadeInBottom {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        #page-hobbies.active {
+            background-color: var(--bg-page-hobbies);
+            animation: zoomIn 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        #page-articles.active {
+            background-color: var(--bg-page-articles);
+            animation: slideInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        #page-contact.active {
+            background-color: var(--bg-page-contact);
+            animation: fadeInTop 0.7s ease-out forwards;
+        }
+
+        @keyframes fadeInTop {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+
+        /* --- Landing Page Specific Styles --- */
+        .landing {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 5;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .landing.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .landing h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glowText 2s ease-in-out infinite alternate;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes glowText {
+            from {
+                text-shadow: 0 0 5px var(--gradient-mid), 0 0 10px var(--gradient-mid);
+            }
+
+            to {
+                text-shadow: 0 0 15px var(--gradient-end), 0 0 25px var(--gradient-end);
+            }
+        }
+
+        .landing p {
+            font-size: clamp(1.1rem, 4vw, 1.5rem);
+            margin-bottom: 2.5rem;
+            color: var(--text-color-secondary);
+        }
+
+        .enter-btn,
+        .contact-form button,
+        .article-card a.read-more-btn {
+            padding: 14px 28px;
+            background: var(--gradient-main);
+            background-size: 200% auto;
+            color: #fff !important;
+            /* Ensure text color is white */
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-position 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .enter-btn:hover,
+        .contact-form button:hover,
+        .article-card a.read-more-btn:hover {
+            background-position: right center;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(37, 117, 252, 0.4);
+        }
+
+        /* --- General Content Styling (Apply within pages) --- */
+        h2 {
+            font-size: clamp(2.2rem, 6vw, 3rem);
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-top: 20px;
+            text-shadow: 0 0 8px rgba(37, 117, 252, 0.3);
+        }
+
+        .page-nav {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-nav a {
+            color: var(--text-color-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin: 0 8px;
+            padding: 5px 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .page-nav a:hover {
+            color: var(--text-color-link-hover);
+        }
+
+        .page-nav a:not(:last-child)::after {
+            content: '|';
+            position: absolute;
+            right: -10px;
+            color: var(--text-color-secondary);
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .page-nav a.active-nav-link {
+            color: var(--text-color-primary);
+            font-weight: bold;
+            border-bottom: 2px solid var(--gradient-mid);
+        }
+
+        /* Container for grid layouts */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        /* Project & Article Card Styles */
+        .project,
+        .article-card {
+            background-color: var(--bg-color-item);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.4s ease, border 0.3s ease;
+            border: 2px solid transparent;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project:hover,
+        .article-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-image: var(--gradient-hover) 1;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .project img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.4s ease;
+        }
+
+        .project:hover img {
+            transform: scale(1.08);
+        }
+
+        .project h3,
+        .article-card h3 {
+            margin-bottom: 10px;
+            color: var(--text-color-primary);
+            font-size: 1.4rem;
+        }
+
+        .project p,
+        .article-card p {
+            color: var(--text-color-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-card a.read-more-btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            margin-top: auto;
+            align-self: center;
+            width: fit-content;
+        }
+
+        /* Skills Grid Styles */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .skill-item {
+            background-color: var(--bg-color-item);
+            padding: 25px 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 0 18px rgba(37, 117, 252, 0.3);
+            border-color: var(--gradient-mid);
+        }
+
+        .skill-item h4 {
+            margin-bottom: 15px;
+            color: var(--text-color-primary);
+            font-size: 1.2rem;
+        }
+
+        .skill-item p {
+            color: var(--text-color-secondary);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .skill-item .skill-entry {
+            display: inline-block; /* Changed from block to inline-block */
+            margin: 5px 10px; /* Added horizontal margin */
+            text-align: center;
+        }
+
+        .skill-item .skill-entry i {
+            margin-right: 5px;
+            color: var(--gradient-mid);
+            font-size: 1rem; /* Adjusted icon size */
+            vertical-align: middle;
+        }
+
+         .skill-item .skill-entry span {
+            vertical-align: middle;
+         }
+
+
+        /* Hobbies Grid Styles */
+        .hobbies-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .hobby-item {
+            background-color: var(--bg-color-item);
+            padding: 25px 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .hobby-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 0 18px rgba(37, 117, 252, 0.3);
+            border-color: var(--gradient-mid);
+        }
+
+        .hobby-item h4 {
+            margin-bottom: 10px;
+            color: var(--text-color-primary);
+            font-size: 1.2rem;
+        }
+
+        .hobby-item p { /* Optional description */
+            color: var(--text-color-secondary);
+            font-size: 0.9rem;
+        }
+
+        .hobby-icon {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 15px;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: transform 0.3s ease;
+        }
+
+        .hobby-item:hover .hobby-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        /* Certification Styles */
+        #page-certifications .skill-item img { /* Reusing skill-item style for consistency */
+            max-width: 80%;
+            height: auto;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        #page-certifications .skill-item a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 15px;
+            background-color: var(--gradient-mid);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        #page-certifications .skill-item a:hover {
+            background-color: var(--gradient-start);
+            transform: scale(1.05);
+        }
+
+        /* About Page Specific Styles */
+        #page-about .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 30px;
+        }
+
+        #page-about .profile-photo-container {
+            flex: 0 0 200px; /* Adjusted basis */
+            text-align: left; /* Keep photo aligned left */
+        }
+
+        #page-about .profile-photo {
+            width: 300px; /* Adjust size as needed */
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gradient-mid);
+            box-shadow: 0 0 15px rgba(37, 117, 252, 0.4);
+            display: inline-block; /* Keep as inline-block */
+        }
+
+        #page-about .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        #page-about .about-text p:nth-of-type(1),
+        #page-about .about-text p:nth-of-type(2) {
+            font-size: 1.1rem;
+            color: var(--text-color-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        #page-about .about-text ul {
+            list-style: none;
+            padding-left: 0; /* Removed default padding */
+            margin-top: 2.5rem;
+            text-align: left; /* Align list items left */
+            /* max-width: 500px; Remove max-width if needed */
+            /* margin-left: auto; Remove auto margins */
+            /* margin-right: auto; */
+        }
+
+        #page-about .about-text li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem; /* Add padding for the icon */
+            position: relative;
+            text-align: left;
+            /* display: inline-block; Make it block for full width */
+            /* width: 100%; */
+        }
+
+        #page-about .about-text li::before {
+            content: '▹';
+            position: absolute;
+            left: 0; /* Align icon to the left */
+            top: 0; /* Align icon vertically */
+            color: var(--gradient-mid);
+            font-weight: bold;
+        }
+
+        #page-about .about-text li strong {
+            color: var(--text-color-primary);
+        }
+
+        /* Contact Page Specific Styles */
+        #page-contact .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        #page-contact .contact-details,
+        #page-contact .contact-form-section {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+        }
+
+        #page-contact .contact-details ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #page-contact .contact-details li {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        #page-contact .contact-details a {
+            color: var(--text-color-link);
+            text-decoration: none;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+
+        #page-contact .contact-details a:hover {
+            color: var(--text-color-link-hover);
+            text-decoration: underline;
+        }
+
+        .contact-form {
+            width: 100%;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background-color: #2a2a34;
+            color: var(--text-color-primary);
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--gradient-mid);
+            outline: none;
+            box-shadow: 0 0 8px rgba(37, 117, 252, 0.4);
+        }
+
+        .contact-form button {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* Visitor Counter */
+        #visitor-counter-section {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        #visitor-counter {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            background: var(--gradient-main);
+            padding: 12px 25px;
+            border-radius: 8px;
+            display: inline-block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        #visitor-counter:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 15px rgba(37, 117, 252, 0.4);
+        }
+
+        #visitor-counter-section p {
+            margin-bottom: 15px;
+            color: var(--text-color-secondary);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 25px 20px;
+            background-color: rgba(26, 26, 36, 0.8);
+            color: var(--text-color-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid #333;
+            width: 100%;
+            margin-top: auto; /* Pushes footer to bottom */
+            position: relative; /* Keep relative for normal flow */
+            z-index: 1;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: var(--text-color-secondary);
+            font-size: 1.5rem;
+            margin: 0 12px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--text-color-link-hover);
+            transform: scale(1.2);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .page {
+                padding: 60px 5% 0; /* Reduced top padding */
+            }
+
+            h2 {
+                font-size: clamp(1.8rem, 5vw, 2.5rem);
+            }
+
+            .page-nav {
+                margin-bottom: 2rem;
+            }
+
+            .page-nav a {
+                font-size: 0.8rem;
+                margin: 0 4px;
+            }
+
+            .page-nav a:not(:last-child)::after {
+                right: -6px;
+            }
+
+            .container,
+            .skills-grid,
+            .hobbies-list {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .project img {
+                height: 180px;
+            }
+
+            #page-about .about-content {
+                flex-direction: column;
+                text-align: center; /* Center align content on smaller screens */
+            }
+
+            #page-about .profile-photo-container {
+                flex-basis: auto;
+                margin-bottom: 20px;
+                text-align: center; /* Center photo */
+            }
+
+            #page-about .about-text {
+                text-align: left; /* Keep text left aligned */
+            }
+
+            #page-about .about-text ul {
+                text-align: left; /* Keep list left aligned */
+                padding-left: 1.5rem; /* Ensure padding for icons */
+            }
+
+             #page-about .about-text li {
+                 text-align: left; /* Ensure list items are left aligned */
+             }
+
+
+            #page-contact .contact-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            #page-contact .contact-details,
+            #page-contact .contact-form-section {
+                max-width: 90%;
+            }
+
+            .footer-content {
+                gap: 10px;
+            }
+
+            .social-icons a {
+                font-size: 1.3rem;
+                margin: 0 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-nav a {
+                margin: 0 3px;
+                font-size: 0.75rem;
+            }
+
+            .page-nav a:not(:last-child)::after {
+                right: -5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-container">
+
+        <section class="landing" id="landing-page">
+            <h1>Welcome to My Portfolio</h1>
+            <p>Hi, I'm Ashu Yadav — Electronics and telecommunication Engineering Student | Process Simulation Enthusiast. Let’s dive into my work!</p>
+            <a href="#about" class="enter-btn" data-page="page-about">Explore My Work</a>
+        </section>
+
+        <div id="page-about" class="page">
+            <div class="page-content-wrapper">
+                <h2>About Me</h2>
+                <nav class="page-nav">
+                    <a href="#about" data-page="page-about" class="active-nav-link">About</a>
+                    <a href="#skills" data-page="page-skills">Skills</a>
+                    <a href="#projects" data-page="page-projects">Projects</a>
+                   
+                    <a href="#certifications" data-page="page-certifications">Certifications</a>
+                    <a href="#hobbies" data-page="page-hobbies">Hobbies</a>
+                    <a href="#contact" data-page="page-contact">Contact</a>
+                </nav>
+                <div class="about-content">
+                    <div class="profile-photo-container">
+                        <img src="Ashu.jpg"
+                            alt="Ashu Yadav Photo" class="profile-photo"
+                            onerror="this.onerror=null; this.src='https://placehold.co/300x300/2a2a34/b0b0b0?text=Image+Not+Found';">
+                    </div>
+                    <div class="about-text">
+                        <p>Hi everyone, I’m Ashu Yadav, a detail-oriented and analytical thinker, currently pursuing my degree at MIT Academy of Engineering. I'm passionate about understanding and optimizing chemical processes.</p>
+                        <p>My approach focuses on applying engineering principles to solve complex problems. I thrive on learning new simulation tools and methodologies, and enjoy collaborating on technical projects.</p>
+                        <ul>
+                            <li><strong>Education:</strong> Pursuing Bachelor's in Electronics and telecommunication Engineering (MITAOE)</li>
+                            <li><strong>Key Interests:</strong> Learning about Process Simulation, Aspen HYSYS, ANSYS</li>
+                            <li><strong>Current Focus:</strong> Core Chemical Engineering Concepts & Simulation Software</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <footer>
+                <div class="footer-content">
+                    <div class="social-icons">
+                        <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/YourTwitterHandle" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a> <a href="#" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                        <a href="https://www.instagram.com/YourInstagramHandle" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a> </div>
+                    <p>&copy; 2025 Atharv Kawade. Crafted with Logic & Precision.</p>
+                </div>
+            </footer>
+        </div>
+
+        <div id="page-skills" class="page">
+            <div class="page-content-wrapper">
+                <h2>Core Skills</h2>
+                <nav class="page-nav">
+                    <a href="#about" data-page="page-about">About</a>
+                    <a href="#skills" data-page="page-skills" class="active-nav-link">Skills</a>
+                    <a href="#projects" data-page="page-projects">Projects</a>
+                    
+                    <a href="#certifications" data-page="page-certifications">Certifications</a>
+                    <a href="#hobbies" data-page="page-hobbies">Hobbies</a>
+                    <a href="#contact" data-page="page-contact">Contact</a>
+                </nav>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <h4>Programming & Technical</h4>
+                        <p>
+                            <span class="skill-entry"><i class="fab fa-python"></i> <span>Python (Basic)</span></span>
+                            <span class="skill-entry"><i class="fa-solid fa-c"></i> <span>C (Basic)</span></span>
+                            </p>
+                    </div>
+                     <div class="skill-item">
+                        <h4>Design & Simulation Software</h4>
+                        <p>
+                            <span class="skill-entry"><i class="fas fa-drafting-compass"></i> <span>AutoCad</span></span>
+                            <span class="skill-entry"><i class="fas fa-cube"></i> <span>Fusion360</span></span>
+                            <span class="skill-entry"><i class="fas fa-flask"></i> <span>Aspen HYSYS (Learning)</span></span>
+                            <span class="skill-entry"><i class="fas fa-wind"></i> <span>ANSYS (Learning)</span></span>
+                        </p>
+                    </div>
+                    <div class="skill-item">
+                        <h4>Electronics and telecommunication Engineering Fundamentals</h4>
+                        <p>Thermodynamics, Fluid Mechanics, Heat Transfer, Mass Transfer (Core Concepts)</p>
+                    </div>
+                    <div class="skill-item">
+                        <h4>Soft Skills</h4>
+                        <p>Teamwork, Communication, Problem-Solving, Adaptability, Analytical Thinking</p>
+                    </div>
+                </div>
+            </div>
+            <footer>
+                <div class="footer-content">
+                    <div class="social-icons">
+                         <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/YourTwitterHandle" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a> <a href="#" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                        <a href="https://www.instagram.com/YourInstagramHandle" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a> </div>
+                     <p>&copy; 2025 Atharv Kawade. Crafted with Logic & Precision.</p>
+                </div>
+            </footer>
+        </div>
+
+        <div id="page-projects" class="page">
+            <div class="page-content-wrapper">
+                <h2>My Projects</h2>
+                <nav class="page-nav">
+                    <a href="#about" data-page="page-about">About</a>
+                    <a href="#skills" data-page="page-skills">Skills</a>
+                    <a href="#projects" data-page="page-projects" class="active-nav-link">Projects</a>
+                    
+                    <a href="#certifications" data-page="page-certifications">Certifications</a>
+                    <a href="#hobbies" data-page="page-hobbies">Hobbies</a>
+                    <a href="#contact" data-page="page-contact">Contact</a>
+                </nav>
+                <div class="container">
+                    <div class="project">
+                        <img src="P1.jpg" alt="Project 1 Placeholder" onerror="this.onerror=null; this.src='https://placehold.co/600x400/2a2a34/b0b0b0?text=Image+Not+Found';">
+                        <h3>fire alarm sensor</h3>
+                        <p>Analysis of [Specific Process] using Aspen HYSYS to optimize [Specific Parameter]. Focused on [Key Findings/Methodology].</p>
+                        </div>
+                    <div class="project">
+                        <img src="P2.jpg" alt="Project 2 Placeholder" onerror="this.onerror=null; this.src='https://placehold.co/600x400/2a2a34/b0b0b0?text=Image+Not+Found';">
+                        <h3>obstacle avoiding robot</h3>
+                        <p>Designed a [Specific Equipment Part] using AutoCad/Fusion360 for use in a university lab setting. Focused on material selection and manufacturability.</p>
+                         </div>
+                     </div>
+            </div>
+            <footer>
+                <div class="footer-content">
+                    <div class="social-icons">
+                         <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/YourTwitterHandle" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a> <a href="#" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                        <a href="https://www.instagram.com/YourInstagramHandle" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a> </div>
+                     <p>&copy; 2025 Atharv Kawade. Crafted with Logic & Precision.</p>
+                </div>
+            </footer>
+        </div>
+
+        
+             <footer>
+                <div class="footer-content">
+                    <div class="social-icons">
+                         <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/YourTwitterHandle" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a> <a href="#" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                        <a href="https://www.instagram.com/YourInstagramHandle" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a> </div>
+                     <p>&copy; 2025 Atharv Kawade. Crafted with Logic & Precision.</p>
+                </div>
+            </footer>
+        </div>
+
+        <div id="page-certifications" class="page">
+             <div class="page-content-wrapper">
+                <h2>Certifications & Courses</h2>
+                 <nav class="page-nav">
+                    <a href="#about" data-page="page-about">About</a>
+                    <a href="#skills" data-page="page-skills">Skills</a>
+                    <a href="#projects" data-page="page-projects">Projects</a>
+                    
+                    <a href="#certifications" data-page="page-certifications" class="active-nav-link">Certifications</a>
+                    <a href="#hobbies" data-page="page-hobbies">Hobbies</a>
+                    <a href="#contact" data-page="page-contact">Contact</a>
+                </nav>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <h4><i class="fab fa-python"></i> Python Essential 1</h4>
+                        <p>Completed foundational Python programming course covering core syntax, data types, and control flow by [Provider Name, e.g., Cisco Networking Academy].</p>
+                        <img src="k6.png" alt="Python Essential 1 Badge" onerror="this.onerror=null; this.src='https://placehold.co/300x150/2a2a34/b0b0b0?text=Image+Not+Found';">
+                        <a href="#" target="_blank">View Credential</a> </div>
+                    <div class="skill-item">
+                        <h4><i class="fab fa-python"></i> Python Essential 2</h4>
+                        <p>Advanced Python concepts including ://placehold.co/300x150/2a2a1a/e0e0e0?text=Pymodules, packages, object-oriented programming, and file handling by [Provider Name].</p>
+                         <img src="k4.png" alt="Python Essential 2 Badge" onerror="this.onerror=null; this.src='https://placehold.co/300x150/2a2a34/b0b0b0?text=Image+Not+Found';">
+                        <a href="#" target="_blank">View Credential</a> </div>
+                    </div>
+            </div>
+             <footer>
+                <div class="footer-content">
+                    <div class="social-icons">
+                         <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/YourTwitterHandle" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a> <a href="#" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                        <a href="https://www.instagram.com/YourInstagramHandle" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a> </div>
+                     <p>&copy; 2025 Atharv Kawade. Crafted with Logic & Precision.</p>
+                </div>
+            </footer>
+        </div>
+
+        <div id="page-hobbies" class="page">
+            <div class="page-content-wrapper">
+                <h2>Hobbies & Interests</h2>
+                <nav class="page-nav">
+                    <a href="#about" data-page="page-about">About</a>
+                    <a href="#skills" data-page="page-skills">Skills</a>
+                    <a href="#projects" data-page="page-projects">Projects</a>
+                   
+                    <a href="#certifications" data-page="page-certifications">Certifications</a>
+                    <a href="#hobbies" data-page="page-hobbies" class="active-nav-link">Hobbies</a>
+                    <a href="#contact" data-page="page-contact">Contact</a>
+                </nav>
+                <div class="hobbies-list">
+                    <div class="hobby-item">
+                        <i class="fas fa-chess hobby-icon"></i>
+                        <h4>Chess</h4>
+                        <p>Enjoying strategic thinking and competitive play.</p>
+                    </div>
+                    <div class="hobby-item">
+                        <i class="fas fa-book-open hobby-icon"></i>
+                        <h4>Reading</h4>
+                        <p>Exploring technical journals and science fiction.</p>
+                    </div>
+                     <div class="hobby-item">
+                        <i class="fas fa-music hobby-icon"></i>
+                        <h4>Listening Music</h4>
+                        <p>Enjoying various genres, focusing on instrumental music.</p>
+                    </div>
+                     <div class="hobby-item">
+                        <i class="fas fa-suitcase-rolling hobby-icon"></i>
+                        <h4>Travelling</h4>
+                        <p>Exploring new places and experiencing different cultures.</p>
+                    </div>
+                     </div>
+            </div>
+             <footer>
+                <div class="footer-content">
+                    <div class="social-icons">
+                         <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/YourTwitterHandle" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a> <a href="#" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                        <a href="https://www.instagram.com/YourInstagramHandle" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a> </div>
+                     <p>&copy; 2025 Atharv Kawade. Crafted with Logic & Precision.</p>
+                </div>
+            </footer>
+        </div>
+
+        <div id="page-contact" class="page">
+            <div class="page-content-wrapper">
+                <h2>Get In Touch</h2>
+                 <nav class="page-nav">
+                    <a href="#about" data-page="page-about">About</a>
+                    <a href="#skills" data-page="page-skills">Skills</a>
+                    <a href="#projects" data-page="page-projects">Projects</a>
+                    
+                    <a href="#certifications" data-page="page-certifications">Certifications</a>
+                    <a href="#hobbies" data-page="page-hobbies">Hobbies</a>
+                    <a href="#contact" data-page="page-contact" class="active-nav-link">Contact</a>
+                </nav>
+                <div class="contact-container">
+                    <div class="contact-details">
+                        <h3>Contact Information</h3>
+                        <p>Feel free to reach out via email or connect on social media.</p>
+                        <ul>
+                            <li><i class="fas fa-envelope"></i> Email: <a href="mailto:atharv.email@example.com">ashuya38@gmail.com</a></li>
+                            <li><i class="fas fa-map-marker-alt"></i> Location: Pimpri-Chinchwad, Maharashtra, India</li>
+                            </ul>
+                         <div class="social-icons" style="margin-top: 20px; text-align: left;"> <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                            <a href="https://x.com/YourTwitterHandle" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a> <a href="#" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                            <a href="https://www.instagram.com/YourInstagramHandle" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a> </div>
+                    </div>
+                    <div class="contact-form-section">
+                        <h3>Send a Message</h3>
+                        <form class="contact-form" action="#" method="POST"> <input type="text" name="name" placeholder="Your Name" required>
+                            <input type="email" name="email" placeholder="Your Email" required>
+                            <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                            <button type="submit">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+                 <div id="visitor-counter-section">
+                    <p>Website Visitors:</p>
+                    <span id="visitor-counter">Loading...</span> </div>
+            </div>
+             <footer>
+                <div class="footer-content">
+                    <div class="social-icons">
+                         <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/YourTwitterHandle" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a> <a href="#" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                        <a href="https://www.instagram.com/YourInstagramHandle" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a> </div>
+                     <p>&copy; 2025 Atharv Kawade. Crafted with Logic & Precision.</p>
+                </div>
+            </footer>
+        </div>
+
+    </div> <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pageLinks = document.querySelectorAll('a[data-page]');
+            const pages = document.querySelectorAll('.page');
+            const landingPage = document.getElementById('landing-page');
+            const enterButton = document.querySelector('.enter-btn');
+
+            function showPage(pageId) {
+                // Hide landing page if showing another page
+                if (pageId && landingPage) {
+                    landingPage.classList.add('hidden');
+                } else if (!pageId && landingPage) {
+                     // Show landing page if no specific pageId (e.g., going back to home)
+                     landingPage.classList.remove('hidden');
+                }
+
+                pages.forEach(page => {
+                    if (page.id === pageId) {
+                        page.classList.add('active');
+                    } else {
+                        page.classList.remove('active');
+                    }
+                });
+
+                // Update active nav link within the currently active page
+                const activePage = document.querySelector('.page.active');
+                if (activePage) {
+                    const activePageNavLinks = activePage.querySelectorAll('.page-nav a');
+                    activePageNavLinks.forEach(link => {
+                        if (link.getAttribute('data-page') === pageId) {
+                            link.classList.add('active-nav-link');
+                        } else {
+                            link.classList.remove('active-nav-link');
+                        }
+                    });
+                }
+                 // Also update nav links on non-active pages for consistency if needed
+                 document.querySelectorAll('.page-nav a').forEach(link => {
+                     if(link.getAttribute('data-page') === pageId) {
+                         // Optional: Could highlight corresponding links everywhere, but might be confusing.
+                         // Sticking to highlighting only within the active page's nav.
+                     }
+                 });
+
+                // Scroll to top of the new page
+                window.scrollTo(0, 0);
+            }
+
+            pageLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetPageId = link.getAttribute('data-page');
+                    showPage(targetPageId);
+
+                    // Optional: Update URL hash for history/bookmarking
+                    // window.location.hash = targetPageId.replace('page-', '');
+                });
+            });
+
+            // Initial page load logic (e.g., show landing or specific page based on hash)
+            // const initialHash = window.location.hash.substring(1);
+            // const initialPageId = initialHash ? page-${initialHash} : null;
+            // if (initialPageId && document.getElementById(initialPageId)) {
+            //    showPage(initialPageId);
+            // } else {
+                 // Show landing page by default if no hash or invalid hash
+                 if (landingPage) landingPage.classList.remove('hidden');
+                 pages.forEach(p => p.classList.remove('active')); // Ensure no other pages are active initially
+            // }
+            // Simplified: Always show landing first unless enter button is clicked.
+             if (landingPage) landingPage.classList.remove('hidden');
+             pages.forEach(p => p.classList.remove('active'));
+
+
+            // Placeholder for visitor counter update
+            const visitorCounter = document.getElementById('visitor-counter');
+            if (visitorCounter) {
+                 // Replace with actual counter logic (e.g., fetch from backend)
+                 setTimeout(() => {
+                     visitorCounter.textContent = '123'; // Example count
+                 }, 1000);
+            }
+        });
+    </script>
+
+</body>
+
+</html>
